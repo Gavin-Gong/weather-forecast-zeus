@@ -1,4 +1,4 @@
-interface WeatherResponse {
+export interface WeatherResponse {
   code: string;
   daily: Array<{
     fxDate: string;
@@ -8,7 +8,7 @@ interface WeatherResponse {
   }>;
 }
 
-interface LocationResponse {
+export interface LocationResponse {
   code: string;
   location: Array<{
     id: string;

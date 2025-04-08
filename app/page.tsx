@@ -1,11 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
-import { get7DayForecast, searchLocations } from "../lib/weather";
+import {
+  WeatherResponse,
+  get7DayForecast,
+  searchLocations,
+} from "../lib/weather";
 import { WeatherCard } from "../components/WeatherCard";
 import { SearchBar } from "../components/SearchBar";
 
 export default function Home() {
-  const [forecast, setForecast] = useState<any>(null);
+  const [forecast, setForecast] = useState<WeatherResponse["daily"] | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [city, setCity] = useState("上海");
@@ -40,7 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     loadWeather(city);
-  }, []);
+  }, [city]);
 
   return (
     <main className="min-h-screen p-8 max-w-4xl mx-auto">
@@ -56,7 +62,7 @@ export default function Home() {
 
       {forecast && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {forecast.map((day: any) => (
+          {forecast.map((day) => (
             <WeatherCard
               key={day.fxDate}
               date={day.fxDate}
